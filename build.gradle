@@ -7,3 +7,13 @@ task hello {
 task zip(type: Zip) {
     from '.'
 }
+
+task archiveReports(type: Zip) {
+   from '/projects/Reports/*'
+   archiveName 'Reports.zip'
+}
+
+task archiveTask(type: Zip) {
+   from '/*'
+   archiveName 'Reports.zip'
+}
