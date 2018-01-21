@@ -3,3 +3,7 @@ task hello {
         println 'Hello world!'
     }
 }
+
+task zip(type: Zip) {
+    from '.'
+}
