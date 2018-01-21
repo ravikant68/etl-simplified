@@ -8,12 +8,17 @@ task zip(type: Zip) {
     from '.'
 }
 
+task copyDocs(type: Copy) {
+    from '.'
+    into 'build/target/doc'
+}
+
 task archiveReports(type: Zip) {
    from '/projects/Reports/*'
    archiveName 'Reports.zip'
 }
 
 task archiveTask(type: Zip) {
-   from '/*'
+   from 'build/target/*'
    archiveName 'Reports.zip'
 }
