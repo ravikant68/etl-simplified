@@ -1,33 +1,44 @@
-apply plugin: 'maven'
+apply plugin: 'java'
+ version = 1.0
  
-group       = 'de.sample'
-version     = '0.1-SNAPSHOT'
+ task myZip(type: Zip) {    
+    from '.'
+    into 'build/target/doc'
+    from 'build/target/*'
+ }
  
-description = 'My cool tool ...'
+ println myZip.archiveName
+ println relativePath(myZip.destinationDir)
+ println relativePath(myZip.archivePath)
+ 
 
- 
- 
-task customZip(type: Zip) {
-    from ('.') {
-        include 'README.md'
-        into 'cool-tool'
-    }
-    baseName = 'cool-tool'
-}
- 	
-artifacts {
-    archives customZip
+task myZip1(type: Zip) {
+    from 'build/target/*'
+    into 'build/target/doc'
 }
  
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: 'http://localhost:8081/nexus/content/repositories/releases/') {
-                authentication(userName: 'release', password: 'secret')
-            }
-            snapshotRepository(url: 'http://localhost:8081/nexus/content/repositories/snapshots') {
-                authentication(userName: 'admin', password: 'admin123')
-            }
-        }
+task hello {
+    doLast {
+        println 'Hello world!'
     }
 }
+
+task zip(type: Zip) {
+    from '.'
+}
+
+task copyDocs(type: Copy) {
+    from '.'
+    into 'build/target/doc'
+}
+
+task archiveReports(type: Zip) {
+   from '/projects/Reports/*'
+   archiveName 'Reports.zip'
+}
+
+task archiveTask(type: Zip) {
+   from 'build/target/*'
+   archiveName 'Reports.zip'
+}
+
