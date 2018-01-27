@@ -3,20 +3,30 @@ version = 1.0
 
 task copy(type: Copy) {
    description 'Copies the resource directory to the target directory.'
-   from 'france'
-   into 'target'
+
+   destinationDir = file("target/Build")
+
+   from ('france'){
+       fileMode = 0755
+   }
    println("description applied")
 }
 
 
-task tarz(type: Tar) {
- archiveName = 'test.tar'
- into ('/'){
-    from 'target'
-    include '*'
- }
+task createTar(type: Tar) {
+  
+   dependsOn copy
+  
+  from("target")	
 
-destinationDir  file('build/dist')
- extension 'tar'
- compression = Compression.GZIP
+  destinationDir = file("$buildDir")
+
+  extension = 'tar.gz'
+
+  baseName = project.name
+
+  compression = Compression.GZIP
+
 }
+
+
